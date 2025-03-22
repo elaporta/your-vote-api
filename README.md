@@ -8,5 +8,5 @@
 6. php artisan config:cache
 7. php artisan migrate
 8. php artisan db:seed --class=AdminSeeder
-9. php artisan db:seed --class=ClientsSeeder **(optional)**
+9. php artisan db:seed --class=ClientsSeeder
 10. php artisan serve **or** set a virtual host.
