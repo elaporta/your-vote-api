@@ -22,7 +22,6 @@ class ClientsSeeder extends Seeder
             $clients[] = [
                 'name' => $faker->firstName,
                 'email' => $faker->email,
-				'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'password' => Hash::make('Client12.'),

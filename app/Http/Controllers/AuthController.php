@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 // Dependencies
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Validator;
-use Illuminate\Auth\Events\Registered;
 
 // Models
 use App\Models\User;
@@ -77,14 +75,6 @@ class AuthController extends Controller
 
         // Create in DB
         $newUser = User::create($parameters);
-
-        // Fire registered event for email confirmation
-		if(config('app.verify_email')) {
-			event(new Registered($newUser));
-		}
-		else{
-			$newUser->markEmailAsVerified();
-		}
 
         // Get the token
         $token = auth()->login($newUser);

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 // Dependencies
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Validator;
-use Illuminate\Auth\Events\Registered;
 
 // Models
 use App\Models\User;
@@ -42,14 +40,6 @@ class UserController extends Controller
 
         // Create in DB
         $user = User::create($parameters);
-
-        // Fire registered event for email confirmation
-		if(config('app.verify_email')) {
-	        event(new Registered($user));
-		}
-		else{
-			$user->markEmailAsVerified();
-		}
 
         return response()->json(['message' => 'Success', 'data' => $user], 201);
     }
