@@ -24,6 +24,9 @@ class VotersSeeder extends Seeder
                 'last_name' => $faker->lastName,
                 'document' => $faker->numerify('########'),
                 'dob' => $faker->dateTimeBetween('-100 years', '-18 years'),
+                'address' => $faker->streetAddress,
+                'phone' => $faker->phoneNumber,
+                'gender' => $faker->randomElement(['male', 'female', 'other']),
                 'is_candidate' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')

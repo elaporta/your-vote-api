@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class VoterUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,12 @@ class UserUpdateRequest extends FormRequest
         return [
             'id' => ['required', 'integer', 'min:1'],
             'name' => ['string', 'min:1', 'max:255'],
-            'email' => ['email', 'unique:users'],
-            'password'=> ['string', 'min:8', 'max:16', 'regex:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[`!@#$%&*()_{};:,.<>?~])([a-zA-Z0-9`!@#$%&*()_{};:,.<>?~]){8,}$/'],
-            'role' => ['string', 'in:admin,client']
+            'last_name' => ['string', 'min:1', 'max:255'],
+            'document' => ['string', 'min:8', 'max:8', 'unique:voters,document,' . $this->id],
+            'dob' => ['date_format:Y-m-d'],
+            'address' => ['string', 'min:1', 'max:255'],
+            'phone' => ['string', 'min:1', 'max:255'],
+            'gender' => ['string', 'in:male,female,other']
         ];
     }
 }

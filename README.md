@@ -8,6 +8,6 @@
 6. composer renv **(script to refresh cache and env variables)**
 7. php artisan migrate
 8. php artisan db:seed --class=AdminSeeder
-9. php artisan db:seed --class=VotersSeeder
-10. php artisan db:seed --class=CandidatesSeeder
+9. php artisan db:seed --class=CandidatesSeeder
+10. php artisan db:seed --class=VotersSeeder
 11. php artisan serve **or** set a virtual host.

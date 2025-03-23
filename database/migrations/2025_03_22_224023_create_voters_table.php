@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name', length: 255);
             $table->string('last_name', length: 255);
-            $table->string('document', length: 255);
+            $table->string('document', length: 8)->unique();
             $table->date('dob');
+            $table->string('address', length: 255);
+            $table->string('phone', length: 255);
+            $table->enum('gender', ['male', 'female', 'other'])->default('other');
             $table->boolean('is_candidate')->default(0);
             $table->timestamps();
             $table->softDeletes();

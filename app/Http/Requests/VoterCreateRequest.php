@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserCreateRequest extends FormRequest
+class VoterCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,12 @@ class UserCreateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:1', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password'=> ['required', 'string', 'min:8', 'max:16', 'regex:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[`!@#$%&*()_{};:,.<>?~])([a-zA-Z0-9`!@#$%&*()_{};:,.<>?~]){8,}$/'],
-            'role' => ['required', 'string', 'in:admin,client']
+            'last_name' => ['required', 'string', 'min:1', 'max:255'],
+            'document' => ['required', 'string', 'min:8', 'max:8', 'unique:voters'],
+            'dob' => ['required', 'date_format:Y-m-d'],
+            'address' => ['required', 'string', 'min:1', 'max:255'],
+            'phone' => ['required', 'string', 'min:1', 'max:255'],
+            'gender' => ['required', 'string', 'in:male,female,other']
         ];
     }
 }

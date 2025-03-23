@@ -88,7 +88,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updatePassword(AuthUpdatePasswordRequest $request) {
-        $parameters = $request->safe()->only(['email', 'password', 'new_password']);
+        $parameters = $request->safe()->all();
  
         $admin = Admin::find(auth()->user()->id);
 
