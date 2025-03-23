@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class ClientsSeeder extends Seeder
+class VotersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,19 +16,20 @@ class ClientsSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        $clients = [];
+        $voters = [];
 
         for($i = 0; $i < 10; $i++) {
-            $clients[] = [
+            $voters[] = [
                 'name' => $faker->firstName,
-                'email' => $faker->email,
+                'last_name' => $faker->lastName,
+                'document' => $faker->numerify('########'),
+                'dob' => $faker->dateTimeBetween('-100 years', '-18 years'),
+                'is_candidate' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'password' => Hash::make('Client12.'),
-                'role' => 'client'
+                'updated_at' => date('Y-m-d H:i:s')
             ];
         }
 
-        DB::table('users')->insert($clients);
+        DB::table('voters')->insert($voters);
     }
 }

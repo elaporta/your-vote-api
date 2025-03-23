@@ -7,14 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 // Models
-use App\Models\User;
+use App\Models\Admin;
 
 // Requests
 use App\Http\Requests\AuthLoginRequest;
-use App\Http\Requests\AuthSignupRequest;
+use App\Http\Requests\AuthUpdatePasswordRequest;
 
 // Exceptions
 use App\Exceptions\UnauthorizedException;
+use App\Exceptions\BadRequestException;
 
 class AuthController extends Controller
 {
@@ -39,7 +40,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the authenticated User.
+     * Get the authenticated Admin.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -48,7 +49,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log the user out (Invalidate the token).
+     * Log the admin out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,28 +67,6 @@ class AuthController extends Controller
         return $this->respondToken(auth()->refresh());
     }
 
-    public function signup(AuthSignupRequest $request) {
-        // Exclude data from request
-        $parameters = $request->safe()->only(['name', 'email', 'password']);
-
-        // Hash password
-        $parameters['password'] = Hash::make($parameters['password']);
-
-        // Create in DB
-        $newUser = User::create($parameters);
-
-        // Get the token
-        $token = auth()->login($newUser);
-
-        // Response
-        if(!$token) {
-            return response()->json(['message' => 'Success', 'data' => $newUser], 201);
-        }
-        else{
-            return $this->respondToken($token, 201);
-        }
-    }
-
     /**
      * Get the token array structure.
      *
@@ -103,4 +82,23 @@ class AuthController extends Controller
         ], $statusCode);
     }
 
+    /**
+     * Change admin password.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updatePassword(AuthUpdatePasswordRequest $request) {
+        $parameters = $request->safe()->only(['email', 'password', 'new_password']);
+ 
+        $admin = Admin::find(auth()->user()->id);
+
+        // Validations
+        if(!isset($admin)) throw new BadRequestException('Admin does not exist.');
+        if(!Hash::check($parameters['password'], $admin->password)) throw new BadRequestException('Old password does not match.');
+
+        // Hash password
+        $admin->fill(['password' => Hash::make($parameters['new_password'])])->save();
+
+        return response()->json(['message' => 'Success'], 200);
+    }
 }

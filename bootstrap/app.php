@@ -6,9 +6,6 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Configuration\Middleware;
 
-// Middlewares
-use App\Http\Middleware\RoleMiddleware;
-
 // Exceptions
 use App\Exceptions\ApplicaitonHeaderException;
 use App\Exceptions\BadRequestException;
@@ -26,9 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
     // Middlewares
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'role' => RoleMiddleware::class
-        ]);
+        //
     })
 
     // Exceptions
