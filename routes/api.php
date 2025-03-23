@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\VoteController;
 
 // Unauthenticated admin routes
 Route::post('auth/login', [AuthController::class, 'login']);
@@ -24,9 +25,15 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('voter', [VoterController::class, 'update']);
     Route::delete('voter/{id}', [VoterController::class, 'delete']);
 
-    Route::get('candidate', [CandidateController::class, 'getAll']);
     Route::get('candidate/{id}', [CandidateController::class, 'getById']);
     Route::post('candidate', [CandidateController::class, 'create']);
     Route::put('candidate', [CandidateController::class, 'update']);
     Route::delete('candidate/{id}', [CandidateController::class, 'delete']);
 });
+
+// Public routes
+Route::get('candidate', [CandidateController::class, 'getAll']);
+Route::get('candidate/by/votes', [CandidateController::class, 'getByVotes']);
+Route::get('vote', [VoteController::class, 'getAll']);
+Route::get('vote/{id}', [VoteController::class, 'getById']);
+Route::post('vote', [VoteController::class, 'create']);

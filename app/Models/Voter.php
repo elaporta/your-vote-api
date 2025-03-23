@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Voter extends Model
 {
@@ -36,11 +38,20 @@ class Voter extends Model
     }
 
     // Local scopes
-    public function scopeVoter(Builder $query) {
+    public function scopeNotCandidate(Builder $query) {
         $query->where('is_candidate', 0);
     }
 
     public function scopeCandidate(Builder $query) {
         $query->where('is_candidate', 1);
+    }
+
+    // Relationships
+    public function votes(): HasOne {
+        return $this->hasOne(Vote::class, 'candidate_id');
+    }
+
+    public function receivedVotes(): HasMany {
+        return $this->hasMany(Vote::class, 'candidate_voted_id');
     }
 }

@@ -54,4 +54,9 @@ class CandidateController extends Controller
         $candidate->delete();
         return response()->json(['message' => 'Success'], 200);
     }
+
+    public function getByVotes() {
+        $candidates = Voter::candidate()->withCount('receivedVotes')->orderByDesc('received_votes_count')->get();
+        return response()->json(['message' => 'Success', 'data' => $candidates], 200);
+    }
 }

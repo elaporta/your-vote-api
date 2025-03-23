@@ -31,13 +31,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (\Throwable $e, Request $request) {
 
             // Accept application/json header
-            if (!$request->expectsJson()) throw new ApplicaitonHeaderException();
+            if(!$request->expectsJson()) throw new ApplicaitonHeaderException();
 
             // Validation exceptions
-            if ($e instanceof ValidationException) throw new BadRequestException($e->errors());
+            if($e instanceof ValidationException) throw new BadRequestException($e->errors());
 
             // Authentication exceptions
-            if ($e instanceof \Illuminate\Auth\AuthenticationException) throw new UnauthorizedException($e->getMessage());
+            if($e instanceof \Illuminate\Auth\AuthenticationException) throw new UnauthorizedException($e->getMessage());
+
+            // Route not found exception
+            if($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) throw new BadRequestException('Invalid route: ' . $request->path());
 
             // Internal server errors
             throw new InternalServerErrorException($e->getMessage(), (config('app.debug') === true) ? $e->getTrace() : null);

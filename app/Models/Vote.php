@@ -30,11 +30,11 @@ class Vote extends Model
     }
 
     // Relationships
-    public function voters(): BelongsTo {
-        return $this->belongsTo(Voters::class, 'candidate_id');
+    public function voter(): BelongsTo {
+        return $this->belongsTo(Voter::class, 'candidate_id');
     }
-
-    public function candidates(): BelongsTo {
-        return $this->belongsTo(Voters::class, 'candidate_voted_id');
+    
+    public function candidate(): BelongsTo {
+        return $this->belongsTo(Voter::class, 'candidate_voted_id');
     }
 }

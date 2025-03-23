@@ -17,12 +17,12 @@ use App\Exceptions\BadRequestException;
 class VoterController extends Controller
 {
     public function getAll() {
-        $voters = Voter::voter()->get();
+        $voters = Voter::notCandidate()->get();
         return response()->json(['message' => 'Success', 'data' => $voters], 200);
     }
 
     public function getById($id) {
-        $voter = Voter::voter()->find($id);
+        $voter = Voter::notCandidate()->find($id);
 
         if(!isset($voter)) throw new BadRequestException('Voter does not exist.');
 
