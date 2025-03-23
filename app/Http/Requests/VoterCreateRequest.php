@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidUruguayanCedula;
 
 class VoterCreateRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class VoterCreateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:1', 'max:255'],
             'last_name' => ['required', 'string', 'min:1', 'max:255'],
-            'document' => ['required', 'string', 'min:8', 'max:8', 'unique:voters'],
+            'document' => ['required', 'string', 'min:8', 'max:8', new ValidUruguayanCedula(), 'unique:voters'],
             'dob' => ['required', 'date_format:Y-m-d'],
             'address' => ['required', 'string', 'min:1', 'max:255'],
             'phone' => ['required', 'string', 'min:1', 'max:255'],

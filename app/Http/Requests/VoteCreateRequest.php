@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidUruguayanCedula;
 
 class VoteCreateRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class VoteCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'document' => ['required', 'string', 'min:8', 'max:8'],
+            'document' => ['required', 'string', 'min:8', 'max:8', new ValidUruguayanCedula()],
             'candidate_voted_id' => ['required', 'integer', 'min:1']
         ];
     }

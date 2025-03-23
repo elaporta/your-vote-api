@@ -32,8 +32,10 @@ class VoteController extends Controller
     public function create(VoteCreateRequest $request) {
         $parameters = $request->safe()->all();
         $voter = Voter::notCandidate()->where('document', $parameters['document'])->first();
+        $candidates = Voter::candidate()->get();
 
-        if(!isset($voter)) throw new BadRequestException('Voter document is not valid.');
+        if(!isset($voter)) throw new BadRequestException('Voter document is not registered for vote.');
+        if(!$candidates->contains('id', $parameters['candidate_voted_id'])) throw new BadRequestException('Invalid candidate id.');
         if($voter->votes()->exists()) throw new BadRequestException('Voter has already voted.');
 
         $parameters['candidate_id'] = $voter->id; 

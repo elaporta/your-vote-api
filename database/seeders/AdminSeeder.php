@@ -20,7 +20,7 @@ class AdminSeeder extends Seeder
             'email' => 'admin@admin.com',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-            'password' => Hash::make('Admin12.')
+            'password' => Hash::make('Admin123.')
         ]);
     }
 }

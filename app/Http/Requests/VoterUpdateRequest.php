@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidUruguayanCedula;
 
 class VoterUpdateRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class VoterUpdateRequest extends FormRequest
             'id' => ['required', 'integer', 'min:1'],
             'name' => ['string', 'min:1', 'max:255'],
             'last_name' => ['string', 'min:1', 'max:255'],
-            'document' => ['string', 'min:8', 'max:8', 'unique:voters,document,' . $this->id],
+            'document' => ['string', 'min:8', 'max:8', new ValidUruguayanCedula(), 'unique:voters,document,' . $this->id],
             'dob' => ['date_format:Y-m-d'],
             'address' => ['string', 'min:1', 'max:255'],
             'phone' => ['string', 'min:1', 'max:255'],
