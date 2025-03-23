@@ -29,11 +29,12 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('candidate', [CandidateController::class, 'create']);
     Route::put('candidate', [CandidateController::class, 'update']);
     Route::delete('candidate/{id}', [CandidateController::class, 'delete']);
+    Route::get('candidate/by/votes', [CandidateController::class, 'getByVotes']);
+
+    Route::get('vote', [VoteController::class, 'getAll']);
+    Route::get('vote/{id}', [VoteController::class, 'getById']);
 });
 
 // Public routes
 Route::get('candidate', [CandidateController::class, 'getAll']);
-Route::get('candidate/by/votes', [CandidateController::class, 'getByVotes']);
-Route::get('vote', [VoteController::class, 'getAll']);
-Route::get('vote/{id}', [VoteController::class, 'getById']);
 Route::post('vote', [VoteController::class, 'create']);
