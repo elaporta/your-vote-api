@@ -39,7 +39,7 @@ class ValidUruguayanCedula implements ValidationRule
 
         // Validate check digit
         if($computedCheckDigit !== $checkDigit) {
-            $fail('The document is not a valid Uruguayan Cédula.');
+            $fail('The document is not a valid Uruguayan cedula.');
         }
     }
 }

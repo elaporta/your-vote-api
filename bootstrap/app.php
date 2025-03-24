@@ -6,6 +6,10 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Configuration\Middleware;
 
+// Middlewares
+use App\Http\Middleware\ConvertRequestToSnakeCase;
+use App\Http\Middleware\ConvertResponseToCamelCase;
+
 // Exceptions
 use App\Exceptions\ApplicaitonHeaderException;
 use App\Exceptions\BadRequestException;
@@ -23,13 +27,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
     // Middlewares
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Global middlewares
+        $middleware->append(ConvertRequestToSnakeCase::class);
+        $middleware->append(ConvertResponseToCamelCase::class);
     })
 
     // Exceptions
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Throwable $e, Request $request) {
-
             // Accept application/json header
             if(!$request->expectsJson()) throw new ApplicaitonHeaderException();
 
