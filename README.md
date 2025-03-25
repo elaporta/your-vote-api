@@ -85,3 +85,6 @@ Or configure your preferred virtual host.
 - **POST** `/vote` - Cast a vote (Public).
 - **GET** `/vote` - Get all votes (Admin Only).
 - **GET** `/vote/{id}` - Get vote details by ID (Admin Only).
+
+## Postman Collection 📨 
+your-vote.postman_collection
