@@ -1,6 +1,6 @@
-# Your Vote API 🗳️
+# 🗳️ Your Vote API
 
-A modern voting system API built with Laravel, providing secure and efficient vote management.
+A modern voting system API built with Laravel 12, providing secure and efficient vote management.
 
 ## 🚀 Quick Start
 
@@ -86,5 +86,5 @@ Or configure your preferred virtual host.
 - **GET** `/vote` - Get all votes (Admin Only).
 - **GET** `/vote/{id}` - Get vote details by ID (Admin Only).
 
-## Postman Collection 📨 
+## 📨 Postman Collection 
 your-vote.postman_collection
